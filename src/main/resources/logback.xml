@@ -1,0 +1,24 @@
+<configuration>
+    <property name="LOG_HOME" value="F:/Desarrollo y Programacion/spring-boot-jpa-Thymeleaf-mysql/proyecto-productos-roles-junit-relacionesJPA-thymeleaf/invntario-java8/log-inventario" />
+    <property name="LOG_FILE_NAME" value="log_inventario" />
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%date %-5level [%thread] - [%logger]- %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>${LOG_HOME}/${LOG_FILE_NAME}</file>
+        <encoder>
+            <pattern>%date %-5level [%thread] - [%logger] - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+   <logger name="com.example" level="debug" />
+
+    <root level="info">
+        <appender-ref ref="STDOUT" />
+        <appender-ref ref="FILE" />
+    </root>
+</configuration>

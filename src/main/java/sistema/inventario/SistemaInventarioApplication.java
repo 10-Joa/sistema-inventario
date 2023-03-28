@@ -1,13 +1,13 @@
-package com.sistemainventario;
+package sistema.inventario;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Application {
+public class SistemaInventarioApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
+		SpringApplication.run(SistemaInventarioApplication.class, args);
 	}
 
 }

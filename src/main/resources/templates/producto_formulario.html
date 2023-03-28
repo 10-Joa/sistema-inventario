@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Inventario</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+		integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+</head>
+
+<body>
+
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand" href="#">App Inventario</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+			aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNavDropdown">
+			<ul class="navbar-nav">
+				<li class="nav-item active">
+					<a class="nav-link" href="/">Inicio</a>
+				</li>
+			</ul>
+		</div>@
+	</nav>
+
+	<div class="container text-center">
+		<div>
+			<h1 th:if="${producto.id == null }">Agregar un nuevo producto</h1>
+			<h1 th:unless="${producto.id == null}">Editar un producto</h1>
+			<!-- el unless es como decir si esto no es verdad has esto-->
+		</div>
+
+		<form th:action="@{/productos/guardar}" th:object="${producto}" method="post"
+			style="max-width: 600px; margin: auto;">
+			<input type="hidden" th:field="*{id}" th:value="${producto.id}" />
+			<div class="m-3">
+				<div class="form-group row">
+					<label class="col-form-label col-sm-4">Nombre del producto: </label>
+					<div class="col-sm-8">
+						<input type="text" th:field="*{nombre}" class="form-control" required />
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-form-label col-sm-4">Categoria: </label>
+					<div class="col-sm-8">
+						<select th:field="*{categoria}" class="form-control" required>
+							<th:block th:each="categorias : ${listaCategoria}">
+								<!--lo q mostrare sera el nombre por eso pongo th:text y lo q guardare en esa opcion sera el id -->
+								<option th:text="${categorias.nombre}" th:value="${categorias.id}"></option>
+							</th:block>
+						</select>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-form-label col-sm-4">Precio del producto: </label>
+					<div class="col-sm-8">
+						<input type="text" th:field="*{precio}" class="form-control" required />
+					</div>
+				</div>
+
+			<!--cargamos detales-->
+				<th:block th:unless="${producto.id == null}" th:each="detalle, status : ${producto.detalles}">
+					<input type="hidden" name="detalleID" th:value="${detalle.id}" />
+					<div class="form-group row">
+						<label class="col-form-label col-sm-4">Detalles crg #[[${status.count}]] :</label>
+						<div class="col-sm-4">
+							<input type="text" name="detallesNombre" th:value="${detalle.nombre}" class="form-control"
+								required>
+						</div>
+						<div class="col-sm-4">
+							<input type="text" name="detallesValor" th:value="${detalle.valor}" class="form-control"
+								required>
+						</div>
+					</div>
+				</th:block>
+				
+				<!--añadimos detalles-->
+					<th:block th:if="${producto.id == null}" >
+					<div class="form-group row">
+						<label class="col-form-label col-sm-4">Detalles #1</label>
+						<div class="col-sm-4">
+							<input type="text" name="detallesNombre" placeholder="Nombre" class="form-control"
+								required>
+						</div>
+						<div class="col-sm-4">
+							<input type="text" name="detallesValor" placeholder="Valor" class="form-control"
+								required>
+						</div>
+					</div>
+					
+					<div class="form-group row">
+						<label class="col-form-label col-sm-4">Detalles #2</label>
+						<div class="col-sm-4">
+							<input type="text" name="detallesNombre" placeholder="Nombre" class="form-control"
+								required>
+						</div>
+						<div class="col-sm-4">
+							<input type="text" name="detallesValor" placeholder="Valor" class="form-control"
+								required>
+						</div>
+					</div>
+				</th:block>
+
+				<div class="text-center p">
+					<button type="submit" class="btn btn-primary">Guardar</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+
+</html>

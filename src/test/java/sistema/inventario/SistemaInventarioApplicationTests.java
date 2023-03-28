@@ -1,10 +1,10 @@
-package com.sistemainventario;
+package sistema.inventario;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ApplicationTests {
+class SistemaInventarioApplicationTests {
 
 	@Test
 	void contextLoads() {
